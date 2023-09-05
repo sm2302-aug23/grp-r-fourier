@@ -1,0 +1,54 @@
+{
+  "tests": [
+    {
+      "name": "Task 1 Collatz sequence",
+      "setup": "sudo apt-get update; sudo apt-get install -y r-base-core r-cran-tidyverse r-cran-testthat; sudo Rscript -e 'install.packages(\"collatz\")'",
+      "run": "Rscript -e 'library(testthat); suppressPackageStartupMessages(source(\"01-gen_collatz.R\")); test_file(\"tests/testthat/test-1) Collatz sequence.R\", reporter = ProgressReporter, stop_on_failure = TRUE)'",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 5
+    },
+    {
+      "name": "Task 1 Validity checks",
+      "setup": "",
+      "run": "Rscript -e 'library(testthat); suppressPackageStartupMessages(source(\"01-gen_collatz.R\")); test_file(\"tests/testthat/test-2) Validity checks.R\", reporter = ProgressReporter, stop_on_failure = TRUE)'",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 5
+    },
+    {
+      "name": "Task 2 Exploratory data analysis",
+      "setup": "",
+      "run": "Rscript -e 'library(testthat); suppressPackageStartupMessages(library(tidyverse)); suppressPackageStartupMessages(source(\"01-gen_collatz.R\")); suppressPackageStartupMessages(source(\"02-eda.R\")); test_file(\"tests/testthat/test-3) Data wrangling tasks.R\", reporter = ProgressReporter, stop_on_failure = TRUE)'",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 5
+    },
+    {
+      "name": "Task 3 Backtracking data frame",
+      "setup": "",
+      "run": "Rscript -e 'library(testthat); suppressPackageStartupMessages(library(tidyverse)); suppressPackageStartupMessages(source(\"01-gen_collatz.R\")); suppressPackageStartupMessages(source(\"02-eda.R\")); suppressPackageStartupMessages(source(\"03-backtracking.R\")); test_file(\"tests/testthat/test-4) Backtracking data frame.R\", reporter = ProgressReporter, stop_on_failure = TRUE)'",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 7
+    },
+    {
+      "name": "Task 3 Backtracking tasks",
+      "setup": "",
+      "run": "Rscript -e 'library(testthat); suppressPackageStartupMessages(library(tidyverse)); suppressPackageStartupMessages(source(\"01-gen_collatz.R\")); suppressPackageStartupMessages(source(\"02-eda.R\")); suppressPackageStartupMessages(source(\"03-backtracking.R\")); test_file(\"tests/testthat/test-5) Backtracking tasks.R\", reporter = ProgressReporter, stop_on_failure = TRUE)'",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 3
+    }
+  ]
+}
