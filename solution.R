@@ -27,7 +27,13 @@ collatz_df <- tibble(
   start = 1:10000,
   seq = lapply(1:10000, gen_collatz),
   length = map_dbl(seq, length),
+  parity = ifelse(start %% 2 ==0, 'Even', 'Odd'),
   max_val = map_dbl(seq, max)
 )
 
 collatz_df
+
+
+
+
+
