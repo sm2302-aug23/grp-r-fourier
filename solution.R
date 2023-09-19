@@ -33,7 +33,41 @@ collatz_df <- tibble(
 
 collatz_df
 
+# Task 2 -----------------------------------------------
+# Exploratory data analysis
 
+# 1)
+
+top10longest <- collatz_df %>%
+  arrange(desc(length)) %>%
+  head(10)
+
+top10longest
+
+# 2)
+
+max_val_int <- collatz_df %>%
+  arrange(desc(max_val)) %>%
+  head(1)
+
+max_val_int
+
+# 3)
+
+even_odd_avg_len <- collatz_df %>%
+  group_by(parity) %>%
+  summarise(avg = mean(length)) %>%
+  arrange(avg)
+
+even_odd_avg_len
+
+
+even_odd_sd_len <- collatz_df %>%
+  group_by(parity) %>%
+  summarise(sd = sd(length)) %>%
+  arrange(sd)
+
+even_odd_sd_len
 
 
 
