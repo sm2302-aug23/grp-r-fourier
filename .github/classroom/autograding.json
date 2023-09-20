@@ -2,13 +2,13 @@
   "tests": [
     {
       "name": "Task 1 Collatz sequence",
-      "setup": "sudo apt-get update; sudo apt-get install -y r-base-core r-cran-tidyverse r-cran-testthat; sudo Rscript -e 'install.packages(\"collatz\")'",
+      "setup": "sudo apt-get update; sudo apt-get install -y r-base-core r-cran-tidyverse r-cran-testthat; sudo Rscript -e 'install.packages(\"collatz\")'; sudo Rscript -e 'install.packages(\"janitor\")'",
       "run": "Rscript -e 'library(testthat); suppressPackageStartupMessages(source(\"01-gen_collatz.R\")); test_file(\"tests/testthat/test-1) Collatz sequence.R\", reporter = ProgressReporter, stop_on_failure = TRUE)'",
       "input": "",
       "output": "",
       "comparison": "included",
       "timeout": 10,
-      "points": 5
+      "points": null
     },
     {
       "name": "Task 1 Validity checks",
@@ -18,7 +18,7 @@
       "output": "",
       "comparison": "included",
       "timeout": 10,
-      "points": 5
+      "points": null
     },
     {
       "name": "Task 2 Exploratory data analysis",
@@ -28,7 +28,7 @@
       "output": "",
       "comparison": "included",
       "timeout": 10,
-      "points": 5
+      "points": null
     },
     {
       "name": "Task 3 Backtracking data frame",
@@ -38,7 +38,7 @@
       "output": "",
       "comparison": "included",
       "timeout": 10,
-      "points": 7
+      "points": null
     },
     {
       "name": "Task 3 Backtracking tasks",
@@ -48,7 +48,7 @@
       "output": "",
       "comparison": "included",
       "timeout": 10,
-      "points": 3
+      "points": null
     }
   ]
 }
