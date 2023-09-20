@@ -5,7 +5,7 @@ library(tidyverse)
 library(ggplot2)
 
 gen_collatz <- function(n) {
-  if(n <= 0) {
+  if(n <= 0 || !is.integer(n)) {
     stop("n must be a positive integer")
   }
   
@@ -25,7 +25,9 @@ gen_collatz <- function(n) {
 
 collatz_df <- tibble(
   start = 1:10000,
-  seq = lapply(1:10000, gen_collatz),
+  seq = lapply(1:10000, function(n)
+    if (n == 1) c(1)
+    else gen_collatz(n)),
   length = map_dbl(seq, length),
   parity = ifelse(start %% 2 ==0, 'Even', 'Odd'),
   max_val = map_dbl(seq, max)
