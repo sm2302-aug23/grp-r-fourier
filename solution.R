@@ -42,8 +42,10 @@ collatz_df
 
 top10longest <- collatz_df %>%
   arrange(desc(length)) %>%
-  head(10) %>%
+  slice_head(n = 10) %>%
   select(start)
+  
+top10longest <- as_tibble(t(top10longest))
 
 top10longest
 
@@ -53,6 +55,8 @@ max_val_int <- collatz_df %>%
   arrange(desc(max_val)) %>%
   head(1) %>%
   select(start)
+
+max_val_int <- t(max_val_int)
 
 max_val_int
 
@@ -78,4 +82,3 @@ even_odd_sd_len <- collatz_df %>%
 even_odd_sd_len <- t(even_odd_sd_len)
 
 even_odd_sd_len
-
