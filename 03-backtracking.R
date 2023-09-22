@@ -65,15 +65,19 @@ max_val_reached <- function(seq, start) {
 }
 
 max_after_backtrack <- backtracks_df %>%
-  mutate(max_val_reached = pmap_int(list(seq, start), max_val_reached))
+  mutate(max_val_reached = pmap_int(list(seq, start), max_val_reached)) %>%
+  select(max_val_reached) 
+
+max_after_backtrack <- t(max_after_backtrack)
 
 max_after_backtrack
-
 
 # 4) Frequency counts for even and odd backtracking integers
 
 even_odd_backtrack <- backtracks_df %>%
-  group_by(parity) %>%
-  count(parity)
+  count(parity, name = "count") %>%
+  select(count)
+
+even_odd_backtrack <- t(even_odd_backtrack)
 
 even_odd_backtrack
