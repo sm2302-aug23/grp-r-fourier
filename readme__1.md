@@ -1,10 +1,13 @@
+# Collatz Conjecture Analysis
+
+![](collatz.png)
 
 ## Background
 
 The Collatz Conjecture is a mathematical conjecture concerning a sequence defined as follows. Start with any positive integer `n`. Then each term is obtained from the previous term according to these rules:
 
-1. If the previous term in even, the next term is one half of the previous term.
-2. If the previous term is odd, the next term is 3 times the previous term plus 1.
+1.  If the previous term in even, the next term is one half of the previous term.
+2.  If the previous term is odd, the next term is 3 times the previous term plus 1.
 
 The Conjecture is that no matter what value of `n`, the sequence will always reach 1.
 
@@ -35,17 +38,17 @@ gen_collatz <- function(n) {
   
   return(seq)
 }
-``` 
+```
 
 Apply this function to all integers from 1 to 10,000 and store the results in a tibble (named `collatz_df`). The tibble (at minimum) should contain two columns: `start` (the starting integer value) and `seq` (the Collatz sequence saved as a list).
 
 Here, we will include:
 
-1. `start` (starting integers) from 1 to 10000.
-2. `seq` (the Collatz sequence saved as a list) using `lapply()` which takes a list, vector, or data frame as input and gives output as a list object. [^1]
-3. `length` (the length of the sequences) using `map_dbl()` which returns a numeric vector. [^2]
-4. `parity` (the starting integers' identity as even or odd), and 
-5. `max_val` (the maximum value reached in each sequences) 
+1.  `start` (starting integers) from 1 to 10000.
+2.  `seq` (the Collatz sequence saved as a list) using `lapply()` which takes a list, vector, or data frame as input and gives output as a list object. [\^1]
+3.  `length` (the length of the sequences) using `map_dbl()` which returns a numeric vector. [\^2]
+4.  `parity` (the starting integers' identity as even or odd), and
+5.  `max_val` (the maximum value reached in each sequences)
 
 ``` r
 collatz_df <- tibble(
@@ -83,9 +86,9 @@ collatz_df
 
 Using `{tidyverse}` data wrangling techniques, we can find the answers to the following questions:
 
-1) Find the top 10 starting integers that produce the longest sequences.
+1)  Find the top 10 starting integers that produce the longest sequences.
 
-Here, we first arrange the length of the sequences from the longest to shortest, and since we only need to know the top 10 longest sequences, we will use `slice_head(n = 10)` and `select(start)` to return only the column of starting integers with the top 10 longest sequences. We will transpose (`t()`) `top10longest` and save it as a tibble (`as_tibble`) [^3] for easier computation. 
+Here, we first arrange the length of the sequences from the longest to shortest, and since we only need to know the top 10 longest sequences, we will use `slice_head(n = 10)` and `select(start)` to return only the column of starting integers with the top 10 longest sequences. We will transpose (`t()`) `top10longest` and save it as a tibble (`as_tibble`) [\^3] for easier computation.
 
 ``` r
 top10longest <- collatz_df %>%
@@ -106,7 +109,7 @@ top10longest
 1  6171  9257  6943  7963  8959  6591  9887  9897  7422  7423
 ```
 
-2) Find out which starting integer produces a sequence that reaches the highest maximum value.
+2)  Find out which starting integer produces a sequence that reaches the highest maximum value.
 
 Similar to the previous question, we will arrange `max_val` in a descending order to find the most maximum integer reached in the sequences, and what the starting integer is, then we use `head(1)` and `select(start)` to only return the value of the starting integer with the maximum value reached in its sequence.
 
@@ -121,13 +124,13 @@ max_val_int <- t(max_val_int)
 
 The starting integer with the maximum value reached in its sequence is 9663:
 
-``` r 
+``` r
 max_val_int
       [,1]
 start 9663
 ```
 
-3) What is the **average length** of the sequence for even starting integers compared to odd ones?
+3)  What is the **average length** of the sequence for even starting integers compared to odd ones?
 
 Since we are comparing the even starting integers with the odd ones, we will use `group_by(parity)` to group even starting integers together and odd starting integers together. Then we can summarise the average length by using `summarise(mean(length))` to return only two values, average length of even starting integers and average length of odd starting integers.
 
@@ -149,7 +152,7 @@ even_odd_avg_len
 avg 79.5936 92.3396
 ```
 
-4) What is the **standard deviation** of the sequence for even starting integers compared to odd ones?
+4)  What is the **standard deviation** of the sequence for even starting integers compared to odd ones?
 
 To find the standard deviation, we can use the same code to find the average length, with the difference of using `summarise(sd(length))` instead of `summarise(mean(length))`.
 
@@ -164,7 +167,7 @@ even_odd_sd_len <- t(even_odd_sd_len)
 ```
 
 The outcome will be:
- 
+
 ``` r
 even_odd_sd_len
        [,1]     [,2]
@@ -173,9 +176,9 @@ sd 45.10308 47.18387
 
 ### 3) Investigating "backtracking" in sequences.
 
-In this task, explore the concept of “backtracking” within the Collatz sequences. Backtracking occurs when a sequence reaches a value that is less than the starting integer, but then increases again above the starting integer at least once before reaching 1.
+In this task, explore the concept of "backtracking" within the Collatz sequences. Backtracking occurs when a sequence reaches a value that is less than the starting integer, but then increases again above the starting integer at least once before reaching 1.
 
-1. Filter `collatz_df` to retain starting integers that exhibit backtracking in their sequences.
+1.  Filter `collatz_df` to retain starting integers that exhibit backtracking in their sequences.
 
 ``` r
 a_backtracking <- function(seq, start) {
@@ -201,11 +204,13 @@ backtracks_df <- collatz_df %>%
   filter(pmap_lgl(list(seq, start), a_backtracking))
 ```
 
-2. For sequences that backtracks, what is the most frequent occurring number of times they go above their starting integer?
+2.  For sequences that backtracks, what is the most frequent occurring number of times they go above their starting integer?
 
-3) What is the maximum value reached after the first backtrack for these sequences?
+<!-- -->
 
-4) Are backtracking sequences more common among even or odd starting integers?
+3)  What is the maximum value reached after the first backtrack for these sequences?
+
+4)  Are backtracking sequences more common among even or odd starting integers?
 
 ### 4) Visualisations
 
@@ -225,7 +230,7 @@ separated_seq <- collatz_df %>%
 separated_seq
 ```
 
-Using the above `separated_seq`, we can find the most frequently appearing integers by filtering `n` to be > 1 to exclude 1, then arrange `n` in descending order and here we will see the top 10 most frequently appearing integers.
+Using the above `separated_seq`, we can find the most frequently appearing integers by filtering `n` to be \> 1 to exclude 1, then arrange `n` in descending order and here we will see the top 10 most frequently appearing integers.
 
 ``` r
 most_frequent <- separated_seq %>%
@@ -234,6 +239,7 @@ most_frequent <- separated_seq %>%
   arrange(desc(n)) %>%
   slice_head(n = 10)
 ```
+
 The top 10 most frequently appearing integers are:
 
 ``` r
@@ -291,7 +297,7 @@ So, 2 is the most frequent integer (other than 1) that appears in all the sequen
 
 ### 6) Creative visualisation challenges
 
-In this part of the task, we visualized some aspect of Collatz conjecture sequences by exploring the sequence lengths change over a range of starting integers. 
+In this part of the task, we visualized some aspect of Collatz conjecture sequences by exploring the sequence lengths change over a range of starting integers.
 
 ``` r
 gen_collatz_length <- function(n) {
@@ -326,4 +332,3 @@ ggplot(collatz_length_df, aes(x= start, y= length, color = parity)) +
 The outcome obtained for the plotting is as below :
 
 ![image](https://github.com/sm2302-aug23/grp-r-fourier/assets/141387781/167baa9d-336d-4266-bde7-4729786d67db)
-
