@@ -1,4 +1,4 @@
-# Analysis of the Collatz conjecture
+![image](https://github.com/sm2302-aug23/grp-r-fourier/assets/141387781/a1258085-d4c0-4c79-814e-3f3e51e0a8e4)# Analysis of the Collatz conjecture
 
 ## Background
 
@@ -36,7 +36,7 @@ gen_collatz <- function(n) {
   
   return(seq)
 }
-```
+``` 
 
 Apply this function to all integers from 1 to 10,000 and store the results in a tibble (named `collatz_df`). The tibble (at minimum) should contain two columns: `start` (the starting integer value) and `seq` (the Collatz sequence saved as a list).
 
@@ -291,4 +291,40 @@ This is because the next terms for `2^n` starting integers are all even and only
 So, 2 is the most frequent integer (other than 1) that appears in all the sequences combined because it is the second last integer to be in a sequence before reaching 1, as 2/2 = 1.
 
 ### 6) Creative visualisation challenges
+
+In this part of the task, we visualized some aspect of Collatz conjecture sequences by exploring the sequence lengths change over a range of starting integers. 
+
+``` r
+gen_collatz_length <- function(n) {
+  if (n == 1) return(1)
+  length <- 1
+  while (n !=1) {
+    if (n %% 2 == 0) {
+      n <- n/2
+    } else {
+      n <- 3* n +1
+    } 
+    length <- length +1 
+  }
+  return(length)
+}
+
+collatz_length_df <- tibble(
+  start = 1:100,
+  length = map_dbl(start, gen_collatz_length),
+  parity = ifelse (start %%2==0, 'Even', 'Odd'))
+
+ggplot(collatz_length_df, aes(x= start, y= length, color = parity)) +
+  geom_line() +
+  labs(title = "Collatz Conjecture Sequence Length", 
+       x= "Starting Integer",
+       y = "Sequence Length",
+       color = "Parity") +
+  
+  theme_minimal()
+```
+
+The outcome obtained for the plotting is as below :
+
+![image](https://github.com/sm2302-aug23/grp-r-fourier/assets/141387781/167baa9d-336d-4266-bde7-4729786d67db)
 
