@@ -109,7 +109,27 @@ In this task, we explore the concept of "backtracking" within the Collatz sequen
 
 **1. Starting integers that exhibit backtracking in their sequences.**
 
+``` r
+backtracks_df
+# A tibble: 8,229 × 5
+   start seq        length parity max_val
+   <int> <list>      <dbl> <chr>    <dbl>
+ 1     6 <dbl [9]>       9 Even        16
+ 2     7 <dbl [17]>     17 Odd         52
+ 3     9 <dbl [20]>     20 Odd         52
+ 4    10 <dbl [7]>       7 Even        16
+ 5    11 <dbl [15]>     15 Odd         52
+ 6    12 <dbl [10]>     10 Even        16
+ 7    13 <dbl [10]>     10 Odd         40
+ 8    14 <dbl [18]>     18 Even        52
+ 9    15 <dbl [18]>     18 Odd        160
+10    17 <dbl [13]>     13 Odd         52
+# ℹ 8,219 more rows
+# ℹ Use `print(n = ...)` to see more rows
+```
+
 **2. Most frequently occurring number of time sequences go above their starting integer for sequences that backtracks.**
+
 
 **3. Maximum value reached after the first backtrack for these sequences.**
 
