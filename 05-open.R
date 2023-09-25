@@ -12,7 +12,7 @@ separated_seq <- collatz_df %>%
 separated_seq
 
 # Combine all of the numbers in the sequences 
-# by seperating numbers in c() with unnest()
+# by separating numbers in c() with unnest()
 
 most_frequent <- separated_seq %>%
   count(seq) %>%
