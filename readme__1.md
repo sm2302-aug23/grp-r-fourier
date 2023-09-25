@@ -1,4 +1,3 @@
-![image](https://github.com/sm2302-aug23/grp-r-fourier/assets/141387781/a1258085-d4c0-4c79-814e-3f3e51e0a8e4)# Analysis of the Collatz conjecture
 
 ## Background
 
