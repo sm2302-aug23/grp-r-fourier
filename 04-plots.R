@@ -14,7 +14,7 @@ ggplot(data = backtracks_df,
              aes(colour = "red"),
              size = 3) +
   labs(
-    title = "The Collatz Conjecture",
+    title = "Collatz Conjecture",
     x = "Starting Integer",
     y = "Length of Sequence",
     colour = "Top 10 Starting Integer") 
@@ -31,7 +31,7 @@ ggplot(data = backtracks_df,
              aes(colour = "red"),
              size = 3) +
   labs(
-    title = "The Collatz Conjecture",
+    title = "Collatz Conjecture",
     x = "Starting Integer",
     y = "Length of Sequence",
     colour = "Top 10 Starting Integer") +
@@ -54,7 +54,7 @@ ggplot(data = max_after_backtrack_df,
              aes(colour = factor(start)), 
              size = 5) +
   labs(
-    title = "The Collatz Conjecture",
+    title = "The Highest Value Reached in the Sequence",
     x = "Starting Integer",
     y = "Maximum Value Reached",
     colour = "Top 10 Starting Integer") 
@@ -70,7 +70,7 @@ ggplot(data = max_after_backtrack_df,
              aes(colour = factor(start)), 
              size = 5) +
   labs(
-    title = "The Collatz Conjecture",
+    title = "The Highest Value Reached in the Sequence",
     x = "Starting Integer",
     y = "Maximum Value Reached",
     colour = "Top 10 Starting Integer") +
