@@ -42,9 +42,9 @@ Apply this function to all integers from 1 to 10,000 and store the results in a 
 
 Here, we will include:
 
-1. `start` (starting integers)
-2. `seq` (the Collatz sequence saved as a list)
-3. `length` (the length of the sequences)
+1. `start` (starting integers) from 1 to 10000.
+2. `seq` (the Collatz sequence saved as a list) using `lapply()` which takes a list, vector, or data frame as input and gives output as a list object. [^1]
+3. `length` (the length of the sequences) using `map_dbl()` which returns a numeric vector. [^2]
 4. `parity` (the starting integers' identity as even or odd), and 
 5. `max_val` (the maximum value reached in each sequences) 
 
@@ -55,7 +55,7 @@ collatz_df <- tibble(
     if (n == 1) c(1)
     else gen_collatz(n)),
   length = map_dbl(seq, length),
-  parity = ifelse(start %% 2 ==0, 'Even', 'Odd'),
+  parity = ifelse(start %% 2 == 0, 'Even', 'Odd'),
   max_val = map_dbl(seq, max)
 )
 ```
@@ -82,11 +82,11 @@ collatz_df
 
 ### 2) Exploratory data analysis
 
-Using `[tidyverse]` data wrangling techniques, we can find the answers to the following questions:
+Using `{tidyverse}` data wrangling techniques, we can find the answers to the following questions:
 
 1) Find the top 10 starting integers that produce the longest sequences.
 
-Here, we first arrange the length of the sequences from the longest to shortest, and since we only need to know the top 10 longest sequences, we will use `slice_head(n = 10)` and `select(start)` to return only the column of starting integers with the top 10 longest sequences. We will transpose (`t()`) `top10longest` and save it as a tibble (`as_tibble`) for easier computation. 
+Here, we first arrange the length of the sequences from the longest to shortest, and since we only need to know the top 10 longest sequences, we will use `slice_head(n = 10)` and `select(start)` to return only the column of starting integers with the top 10 longest sequences. We will transpose (`t()`) `top10longest` and save it as a tibble (`as_tibble`) [^3] for easier computation. 
 
 ``` r
 top10longest <- collatz_df %>%
@@ -216,7 +216,7 @@ Our team has decided to explore an interesting question about the Collatz Conjec
 
 **What is the most frequent integer that appears in all the sequences combined, excluding the number 1?**
 
-Firstly, to combine all of the numbers in the sequences, we will separate the numbers in `c()` with `unnest()`:
+Firstly, to combine all of the numbers in the sequences, we will separate the numbers in `c()` with `unnest()` and filter the sequences to not include 1:
 
 ``` r
 separated_seq <- collatz_df %>%
@@ -226,7 +226,7 @@ separated_seq <- collatz_df %>%
 separated_seq
 ```
 
-Filter `n` to be > 1 to exclude 1, then arrange `n` in descending order to find the most frequent and here we will see the top 10 most frequently appearing integers.
+Using the above `separated_seq`, we can find the most frequently appearing integers by filtering `n` to be > 1 to exclude 1, then arrange `n` in descending order and here we will see the top 10 most frequently appearing integers.
 
 ``` r
 most_frequent <- separated_seq %>%
@@ -254,9 +254,7 @@ most_frequent
 10   160  4750
 ```
 
-Here we can see that the most frequently appearing integer in the sequences combined is 2, with 9999 appearances.
-
-Notice that the top 4 are multiples of 2.
+We can see that the most frequently appearing integer in the sequences combined is 2, with 9999 appearances.
 
 Interestingly, starting integers of powers of 2 have the shortest sequence lengths among their neighboring starting integers. Lets check their lengths with the following code. Note that `slice()` can be used to change the range of the data, e.g. `1:10`, `11:20`, `1:100`.
 
@@ -285,6 +283,8 @@ in10start
  9     7     17
 10     9     20
 ```
+
+You can try checking the lengths for other powers of 2 such as 16, 32 and 64 and compare them with their neighbouring integers.
 
 This is because the next terms for `2^n` starting integers are all even and only need to be divided by 2 until the sequences reach 1, unlike the other starting integers that have odd numbers in their sequences.
 
