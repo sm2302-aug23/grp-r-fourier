@@ -2,7 +2,7 @@
   "tests": [
     {
       "name": "Task 1 Collatz sequence",
-      "setup": "sudo apt-get update; sudo apt-get install -y r-base-core r-cran-tidyverse r-cran-testthat; sudo Rscript -e 'install.packages(\"collatz\")'",
+      "setup": "sudo apt-get update; sudo apt-get install -y r-base-core r-cran-tidyverse r-cran-testthat; sudo Rscript -e 'install.packages(\"collatz\")'; sudo Rscript -e 'install.packages(\"janitor\")'; sudo Rscript -e 'install.packages(\"conflicted\")'",
       "run": "Rscript -e 'library(testthat); suppressPackageStartupMessages(source(\"01-gen_collatz.R\")); test_file(\"tests/testthat/test-1) Collatz sequence.R\", reporter = ProgressReporter, stop_on_failure = TRUE)'",
       "input": "",
       "output": "",
