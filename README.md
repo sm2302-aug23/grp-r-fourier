@@ -521,3 +521,14 @@ In this part of the task, we visualized some aspect of Collatz conjecture sequen
 [\^1] [`lapply()` function](https://www.geeksforgeeks.org/apply-lapply-sapply-and-tapply-in-r/)
 [\^2] [`map_dbl()` function](https://www.rdocumentation.org/packages/purrr/versions/0.1.0/topics/map)
 [\^3] [`as_tibble()` function](https://tibble.tidyverse.org/reference/as_tibble.html#:~:text=as_tibble()%20turns%20an%20existing,()%20as%20base%3A%3Aas)
+
+#### Contribution declaration
+
+- Task 1: @SyafiqahIsa @Hilalina13
+- Task 2: @BazilahHM19 @SyafiqahIsa
+- Task 3: @Fiqah-Alihan @Hilalina13
+- Task 4: @Fiqah-Alihan
+- Task 5: @SyafiqahIsa
+- Task 6: @Hilalina13
+- README: @BazilahHM19 @Fiqah-Alihan @Hilalina13 @SyafiqahIsa
+
