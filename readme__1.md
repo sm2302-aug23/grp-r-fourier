@@ -110,6 +110,32 @@ In this task, we explore the concept of "backtracking" within the Collatz sequen
 **1. Starting integers that exhibit backtracking in their sequences.**
 
 ``` r
+a_backtracking <- function(seq, start) {
+  value_less_than_start <- FALSE
+  
+  for (value in seq) {
+    if (value < start) {
+      value_less_than_start <- TRUE
+    }
+    if (value_less_than_start & value > start) {
+      return(TRUE)
+    }
+    if (value == 1) {
+      break
+    }
+  }
+  return(FALSE)
+}
+```
+
+``` r
+backtracks_df <- collatz_df %>%
+  filter(pmap_lgl(list(seq, start), a_backtracking))
+```
+
+A tibble will be formed:
+
+``` r
 backtracks_df
 # A tibble: 8,229 × 5
    start seq        length parity max_val
@@ -130,10 +156,72 @@ backtracks_df
 
 **2. Most frequently occurring number of time sequences go above their starting integer for sequences that backtracks.**
 
+  
+``` r
+max_count <- function(seq, start) {
+  sum(seq > start)
+}
+
+count_df <- backtracks_df %>%
+  mutate(count=pmap_int(list(seq,start),max_count))
+
+mode_backtrack <- count_df %>%
+  group_by(count) %>%
+  summarise(seq_count = n()) %>%
+  filter(seq_count == max(seq_count)) %>%
+  pull(count)
+```
+
+The outcome will be:
+  
+``` r
+[1] 1
+```
 
 **3. Maximum value reached after the first backtrack for these sequences.**
 
+```r
+max_val_reached <- function(seq, start) {
+  value_less_than_start <- FALSE
+  max_val <- 0
+  
+  for (value in seq) {
+    if (value < start) {
+      value_less_than_start <- TRUE
+    }
+    if (value_less_than_start & value > start) {
+      max_val <- max(max_val,value)
+    }
+    if (value == 1) {
+      break
+    }
+  }
+  return(max_val)
+}
+
+max_after_backtrack <- backtracks_df %>%
+  mutate(max_val_reached = pmap_dbl(list(seq, start), max_val_reached)) %>%
+  select(max_val_reached)
+
+max_after_backtrack <- t(max_after_backtrack)
+```
+
 **4. Are backtracking sequences more common among even or odd starting integers?**
+
+``` r
+even_odd_backtrack <- backtracks_df %>%
+  count(parity, name = "count") %>%
+  select(count)
+
+even_odd_backtrack <- t(even_odd_backtrack)
+```
+
+The outcome will show that backtracking sequences are more common among odd integers:
+  
+  ``` r
+[,1] [,2]
+count 3943 4286
+```
 
 ### 4) Visualisations
 
@@ -141,15 +229,122 @@ Below graphs will visualises the data wrangling tasks from Task 3 above.
 
 **1. A scatterplot of all the sequence lengths.**
 
-![](Rplot.png)
+``` r
+ggplot(data = backtracks_df,
+       aes(x = start,
+           y = length)
+) +
+  geom_point() +  
+  geom_point(data = head(backtracks_df, 10), 
+             aes(colour = "red"),
+             size = 3) +
+  labs(
+    title = "The Collatz Conjecture",
+    x = "Starting Integer",
+    y = "Length of Sequence",
+    colour = "Top 10 Starting Integer")
+```
+
+The graph obtained is as below:
+
+![](Task4(Graph 1.1).png)
+  
+  
+We then created another scatterplot by adding limits to the code above to see the top 10 starting integers more clearly. (Note that the limits are not fixed and can be changed based on our preferences)
+
+``` r
+ggplot(data = backtracks_df,
+       aes(x = start,
+           y = length)
+) +
+  geom_point() +  
+  geom_point(data = head(backtracks_df, 10), 
+             aes(colour = "red"),
+             size = 3) +
+  labs(
+    title = "The Collatz Conjecture",
+    x = "Starting Integer",
+    y = "Length of Sequence",
+    colour = "Top 10 Starting Integer") +
+  scale_x_continuous(
+    limits = c(0, 2000)) +
+  scale_y_continuous(
+    limits = c(0,100))
+```
+
+The graph obtained is as below:
+
+![](Task4(Graph 1.2).png)
+
 
 **2. A scatterplot of the highest value reached in the sequence.**
 
-![](Task4(2.1).png)
+``` r
+max_after_backtrack_df <- backtracks_df %>%
+  mutate(max_val_reached = pmap_dbl(list(seq, start), max_val_reached))
+
+ggplot(data = max_after_backtrack_df,
+       aes(x = start,
+           y = max_val_reached)) +
+  geom_point() +  
+  geom_point(data = head(max_after_backtrack_df, 10),
+             aes(colour = factor(start)), 
+             size = 5) +
+  labs(
+    title = "The Collatz Conjecture",
+    x = "Starting Integer",
+    y = "Maximum Value Reached",
+    colour = "Top 10 Starting Integer")
+```
+
+The graph created is as below:
+
+![](Task4(Graph 2.1).png)
+
+Similar to (1), we created another scatterplot to see the top 10 starting integers more clearly:
+  
+``` r
+ggplot(data = max_after_backtrack_df,
+       aes(x = start,
+           y = max_val_reached)) +
+  geom_point() +  
+  geom_point(data = head(max_after_backtrack_df, 10),
+             aes(colour = factor(start)), 
+             size = 5) +
+  labs(
+    title = "The Collatz Conjecture",
+    x = "Starting Integer",
+    y = "Maximum Value Reached",
+    colour = "Top 10 Starting Integer") +
+  scale_x_continuous(
+    limits = c(0, 500)
+  ) +
+  scale_y_continuous(
+    limits = c(0, 500)
+  )
+```
+
+The graph created is as below:
+
+![](Task4(Graph 2.2).png)
+
 
 **3. A boxplot comparing the distributions of sequence lengths for even and odd integers.**
 
+``` r
+ggplot(data = backtracks_df) +
+  geom_boxplot(aes(x = parity,
+                   y = length)) +
+  labs(
+    title = "Distributions of Sequence Lengths",
+    x = "Parity of Starting Integer",
+    y = "Length of Sequence")
+```
+
+The graph obtained is as below:
+
 ![](Task4(3).png)
+
 
 ### 5) Open-ended exploration
 
