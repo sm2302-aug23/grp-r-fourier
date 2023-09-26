@@ -329,7 +329,7 @@ ggplot(data = backtracks_df,
 
 The graph obtained is as below:
 
-![](Task4(Graph 1.1).png)
+![](Task4-1-1.png)
   
   
 We then created another scatterplot by adding limits to the code above to see the top 10 starting integers more clearly. (Note that the limits are not fixed and can be changed based on our preferences)
@@ -356,7 +356,7 @@ ggplot(data = backtracks_df,
 
 The graph obtained is as below:
 
-![](Task4(Graph 1.2).png)
+![](Task4-1-2.png)
 
 
 **2. A scatterplot of the highest value reached in the sequence.**
@@ -381,7 +381,7 @@ ggplot(data = max_after_backtrack_df,
 
 The graph created is as below:
 
-![](Task4(Graph 2.1).png)
+![](Task4-2-1.png)
 
 Similar to (1), we created another scatterplot to see the top 10 starting integers more clearly:
   
@@ -408,7 +408,7 @@ ggplot(data = max_after_backtrack_df,
 
 The graph created is as below:
 
-![](Task4(Graph 2.2).png)
+![](Task4-2-2.png)
 
 
 **3. A boxplot comparing the distributions of sequence lengths for even and odd integers.**
