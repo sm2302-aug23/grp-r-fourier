@@ -294,12 +294,16 @@ even_odd_backtrack <- backtracks_df %>%
 even_odd_backtrack <- t(even_odd_backtrack)
 ```
 
-The outcome will show that backtracking sequences are more common among odd integers:
-  
-  ``` r
-[,1] [,2]
+The outcome will be:
+
+``` r
+      [,1] [,2]
 count 3943 4286
 ```
+where columns [,1] and [,2] represent even and odd starting integers, respectively.
+
+The result shows that backtracking sequences are more common among odd starting integers.
+
 
 ### 4) Visualisations
 
