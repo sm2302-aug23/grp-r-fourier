@@ -133,7 +133,7 @@ backtracks_df
 
 **3. Maximum value reached after the first backtrack for these sequences.**
 
-**4. Are backtracking sequences more common among even or odd starting integers.**
+**4. Are backtracking sequences more common among even or odd starting integers?**
 
 ### 4) Visualisations
 
