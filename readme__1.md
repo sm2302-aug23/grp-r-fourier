@@ -237,3 +237,10 @@ So, 2 is the most frequent integer (other than 1) that appears in all the sequen
 In this part of the task, we visualized some aspect of Collatz conjecture sequences by exploring *the changes of the sequence lengths over a range of starting integers*.
 
 ![](Task6.png)
+
+
+**Sources**
+
+[\^1] [`lapply()` function](https://www.geeksforgeeks.org/apply-lapply-sapply-and-tapply-in-r/)
+[\^2] [`map_dbl()` function](https://www.rdocumentation.org/packages/purrr/versions/0.1.0/topics/map)
+[\^3] [`as_tibble()` function](https://tibble.tidyverse.org/reference/as_tibble.html#:~:text=as_tibble()%20turns%20an%20existing,()%20as%20base%3A%3Aas)
